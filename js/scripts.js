@@ -3,18 +3,12 @@ let pokemonList = [
     {
         name: 'Nidoking',
         height: 4,
-        type: [
-            'Poison',
-            'Ground'
-        ]
+        type: ['Poison', 'Ground']
     },
     {
         name:'Venusaur',
         height: 6,
-        type: [
-            'Grass',
-            'Poison'
-        ]
+        type: ['Grass', 'Poison']
     },
     {
         name: 'Machamp',
@@ -24,26 +18,17 @@ let pokemonList = [
     {
         name: 'Golem',
         height: 4,
-        type: [
-            'Rock',
-            'Ground'
-        ]
+        type: ['Rock', 'Ground']
     },
     {
         name: 'Tentacruel',
         height: 5,
-        type: [
-            'Water',
-            'Poison' 
-        ]
+        type: ['Water','Poison']
     },
     {
         name: 'Rhyhorn',
         height: 3,
-        type: [
-            'Rock',
-            'Ground'
-        ]
+        type: ['Rock', 'Ground']
     },
     {
         name: 'Sandslash',
