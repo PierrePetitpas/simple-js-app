@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Gluten:wght@500&display=swap');
+
+
+
+body{
+    background-image: url('../img/pokemon_background2.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-color: black;
+    font-family: 'Gluten', cursive;
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    padding-top: 5em;
+}
+
+h1{
+    background: rgba(1,1,1,0.7);
+    width: 75%;
+    margin: auto;
+    padding: 15px;
+}
+
+p{
+    display: block;
+    background: rgba(1,1,1,0.9);
+    width: 75%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+b{
+    font-size: 2rem;
+    color: blue;
+}
+
+@media all and (max-width: 500px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+    p, b{
+        font-size: 1rem;
+    }
+}
