@@ -19,31 +19,35 @@
     function add(newItem) {
       return pokemonList.push(newItem);
     }
-  
+//create the list of pokemon and display a button for each pokemon name
+    function addListItem(myPokemon){
+      let myPokemonList = document.querySelector('.pokemon-list');
+      let listItems = document.createElement ('li');
+      let myButton = document.createElement ('button');
+      myButton.innerText = myPokemon.name;
+      myButton.classList.add ('button-class');
+      listItems.appendChild(myButton);
+      myPokemonList.appendChild(listItems);
+      //on-click call the showdetails function 
+      myButton.addEventListener('click', function (event) {
+        myPokeRepository.showDetails(myPokemon);
+      });
+    }
+    // show detail of a pokemon in the console
+    function showDetails(myPokemon){
+      console.log(myPokemon);
+    }
     return {
       getAll: getAll,
       add: add,
+      addListItem: addListItem,
+      showDetails: showDetails
     };
   })()
   
   
-  // Loop into all array elements of my repository (myPokeRepository)
-  myPokeRepository.getAll().forEach(function(myPokemons) {
-    let pokeName = myPokemons.name
-    let pokeHeight = myPokemons.height
-    // If height is bigger then 3 and smaller or equal to 6 write average message
-    if (pokeHeight > 3 && pokeHeight <=6){
-      document.write ('<p> <strong> <u>' + pokeName + '</u> </strong> (height: ' + pokeHeight  + '). This one is average.</p>')
-    }
-    // If height is smaller then 3 write small message
-    else if (pokeHeight <= 3){
-      document.write ('<p> <strong> <u>' + pokeName + '</u> </strong> (height: ' + pokeHeight  + '). This one is small.</p>')
-    } 
-    // All else write massive message
-    else{
-      document.write ('<p> <strong> <u>' + pokeName + '</u> </strong> (height: ' + pokeHeight  + '). <b> WoW This one is Massive!!!</b></p>')
-    }
+  myPokeRepository.getAll().forEach(function(myPokemon) {
+    myPokeRepository.addListItem(myPokemon);
   });
-  
   
   

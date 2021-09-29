@@ -17,7 +17,7 @@ body{
 
 h1{
     background: rgba(1,1,1,0.7);
-    width: 75%;
+    width: 45%;
     margin: auto;
     padding: 15px;
 }
@@ -33,6 +33,17 @@ p{
 b{
     font-size: 2rem;
     color: blue;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.button-class{
+    width: 250px;
+    margin: 5px;
+    background: rgba(1,1,1,0.9);
+    color: white;
 }
 
 @media all and (max-width: 500px) {
