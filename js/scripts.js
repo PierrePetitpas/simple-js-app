@@ -2,15 +2,9 @@
  //  Create an array(pokemonList) in an IIE 
  let myPokeRepository = (function () {
  
-    let pokemonList = [
-     { name: 'Nidoking', height: 4, type: ['Poison', 'Ground']},
-     { name: 'Venusaur', height: 7, type: ['Grass', 'Poison']},
-     { name: 'Machamp', height: 5, type: 'Fighting'},
-     { name: 'Golem', height: 4, type: ['Rock', 'Ground']},
-     { name: 'Tentacruel', height: 5, type: ['Water','Poison']},
-     { name: 'Rhyhorn', height: 3, type: ['Rock', 'Ground']},
-     { name: 'Sandslash', height: 3, type: 'Ground'}
-    ];
+    let pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
   // Return all the pokemon list
     function getAll() {
       return pokemonList;
@@ -20,34 +14,70 @@
       return pokemonList.push(newItem);
     }
 //create the list of pokemon and display a button for each pokemon name
-    function addListItem(myPokemon){
-      let myPokemonList = document.querySelector('.pokemon-list');
+    function addListItem(pokemon){
+      let pokemonList = document.querySelector('.pokemon-list');
       let listItems = document.createElement ('li');
       let myButton = document.createElement ('button');
-      myButton.innerText = myPokemon.name;
+      myButton.innerText = pokemon.name;
       myButton.classList.add ('button-class');
       listItems.appendChild(myButton);
-      myPokemonList.appendChild(listItems);
+      pokemonList.appendChild(listItems);
       //on-click call the showdetails function 
       myButton.addEventListener('click', function (event) {
-        myPokeRepository.showDetails(myPokemon);
+        myPokeRepository.showDetails(pokemon);
       });
     }
+//fetch the list of pokemons from the API. lLopp into the json file and call the add function to build the array
+    function loadList() {
+      return fetch(apiUrl).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        json.results.forEach(function (item) {
+          let pokemon = {
+            name: item.name,
+            detailsUrl: item.url
+          };
+          add(pokemon);
+        });
+      }).catch(function (e) {
+        console.error(e);
+      })
+    }
+
+   //Fetch the details for a specific pokemon and get the imageURL, Height and types from the Json. 
+    function loadDetails(item) {
+      let url = item.detailsUrl;
+      return fetch(url).then(function (response) {
+        return response.json();
+      }).then(function (details) {
+        // Now we add the details to the item
+        item.imageUrl = details.sprites.front_default;
+        item.height = details.height;
+        item.types = details.types;
+      }).catch(function (e) {
+        console.error(e);
+      });
+    }
+
     // show detail of a pokemon in the console
-    function showDetails(myPokemon){
-      console.log(myPokemon);
+    function showDetails(pokemon){
+      loadDetails(pokemon).then(function () {
+        console.log(pokemon);
+      });
     }
     return {
       getAll: getAll,
       add: add,
       addListItem: addListItem,
-      showDetails: showDetails
+      showDetails: showDetails,
+      loadList: loadList,
+      loadDetails: loadDetails
     };
   })()
   
-  
-  myPokeRepository.getAll().forEach(function(myPokemon) {
-    myPokeRepository.addListItem(myPokemon);
+  myPokeRepository.loadList().then (function(){
+      myPokeRepository.getAll().forEach(function(pokemon) {
+        myPokeRepository.addListItem(pokemon);
   });
   
-  
+});
