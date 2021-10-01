@@ -54,16 +54,79 @@
         item.imageUrl = details.sprites.front_default;
         item.height = details.height;
         item.types = details.types;
+        item.species = details.species.name;
       }).catch(function (e) {
         console.error(e);
       });
     }
 
-    // show detail of a pokemon in the console
+    // show detail in Modal when name is clicked
     function showDetails(pokemon){
+      
       loadDetails(pokemon).then(function () {
-        console.log(pokemon);
+        let modalContainer = document.querySelector('#modal-container');
+        // Clear all existing modal content
+        modalContainer.innerHTML = '';
+        let modal = document.createElement ('div');
+        modal.classList.add ('modal');
+  
+      // add a close button to the new modal
+        let closeButtonElement = document.createElement ('button');
+        closeButtonElement.classList.add ('modal-close');
+        closeButtonElement.innerText = 'Close';
+        closeButtonElement.addEventListener('click', hideModal);
+  
+        // add the Name of pokeman for title
+        let titleElement = document.createElement ('h1');
+        titleElement.classList.add ('modal-title');
+        titleElement.innerText = pokemon.name;
+
+        //add the pokemon Image to the new modal
+        let imageElement = document.createElement ('img');
+        imageElement.classList.add ('modal-image');
+        imageElement.src = pokemon.imageUrl;
+  
+        // add the pokemon height to the new modal
+        let heightElement = document.createElement('p');
+        heightElement.classList.add ('modal-height');
+        heightElement.innerText = 'Height: ' + pokemon.height;
+
+        //add pokemon species to the new modal
+        let speciesElement = document.createElement('p');
+        speciesElement.classList.add ('modal-species');
+        speciesElement.innerText = 'Species: ' + pokemon.species;
+  
+        // appen all the elements and display them
+        modal.appendChild (closeButtonElement);
+        modal.appendChild (titleElement);
+        modal.appendChild (imageElement);
+        modal.appendChild (heightElement);
+        modal.appendChild (speciesElement);
+        modalContainer.appendChild (modal);
+        modalContainer.classList.add ('is-visible');
+        
+        //function to hide the modal 
+        function hideModal(){
+          modalContainer.classList.remove('is-visible');
+        }
+
+        // if the esc key is press close modal
+        window.addEventListener('keydown', (e) => {
+          let modalContainer = document.querySelector('#modal-container');
+          if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+            hideModal();  
+          }
+        });
+
+        // when clicking outside modal close modal
+        modalContainer.addEventListener('click', (e) => {
+          let target = e.target;
+          if (target === modalContainer) {
+            hideModal();
+          }
+        });
       });
+
     }
     return {
       getAll: getAll,
