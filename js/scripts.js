@@ -5,17 +5,18 @@
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     //create filter on search in nav-bar
-    let myFilter = document.getElementById('my-search');
+    let filter = document.getElementById('my-search');
 
-    myFilter.addEventListener('keyup', function (chars) {
-      const searchString = chars.target.value.toLowerCase();
-      const filteredPokemon = pokemonList.filter( pokemons => {
-        return  pokemons.name.includes(searchString);
-      });
-      //console.log(filteredPokemon);
-      filteredPokemon.forEach(function (item) {
-        console.log(item);
-        addListItem(item);
+    filter.addEventListener('input', function () {
+      let pokemons = document.querySelectorAll('.pokemon-list');
+      let value = filter.value.toLowerCase();
+  
+      pokemons.forEach(function (pokemon) {
+        if (pokemon.innerText.toLowerCase().indexOf(value) > -1) {
+          pokemon.style.display = '';
+        } else {
+          pokemon.style.display = 'none';
+        }
       });
     });
 
@@ -33,7 +34,7 @@
       let pokemonList = document.querySelector('.pokemon-list');
       pokemonList.classList.add('row');
       let listItems = document.createElement ('li');
-      listItems.classList.add('pokemon-list', 'list-group-item', 'list-group-flush','col-xl-3', 'col-lg-4', 'col-md-6');
+      listItems.classList.add('pokemon-list','col-xl-3', 'col-lg-4', 'col-md-6');
       let myButton = document.createElement ('button');
       myButton.innerText = pokemon.name;
       myButton.classList.add ('button-class', 'btn');
