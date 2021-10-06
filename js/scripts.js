@@ -93,12 +93,14 @@
 
     function showModal(pokemon){
         let modalBody = $('.modal-body');
-        let modalTitle = $('.modal-title');
+        //let modalTitle = $('.modal-title');
         //clear the content after use to be ready for the next
-        modalTitle.empty();
+        //modalTitle.empty();
         modalBody.empty();
 
-        let namePokemon = $('<h1>' + pokemon.name + '</h1>');
+        let modalTitle = document.querySelector('.modal-title');
+        modalTitle.innerText = pokemon.name;
+       
         
         let imagePokemon = $('<img class = "modal-img" style="width:50%">');
         imagePokemon.attr('src', pokemon.imageUrl);
@@ -112,7 +114,7 @@
 
 
 
-        modalTitle.append(namePokemon);
+        //modalTitle.append(namePokemon);
         modalBody.append(imagePokemon);
         modalBody.append(imagePokemonBack);
         modalBody.append(heightPokemon);
