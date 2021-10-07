@@ -12,6 +12,7 @@ Each Pokemon name is display in a button. This button is clickable and will disp
 # How to get the project running:
 
 # Project dependencies (e.g., JavaScript version, ESLint rules):
+* ESLint
 
 # Which API the project uses:
 *https://pokeapi.co/api/v2/pokemon/?limit=150
